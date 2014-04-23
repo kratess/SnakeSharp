@@ -99,6 +99,12 @@ namespace snake
                 if ((this.tick_counter == this.time_to_add_more_food && this.food.Count() < this.max_num_of_food) || this.food.Count() < 1)
                     this.GenerateFood();
 
+                if (this.CheckCollision())
+                {
+                    Console.WriteLine("COLISSION OCCURED");
+                }
+
+
                 this.tick.Start();
             }));
         }
@@ -134,6 +140,24 @@ namespace snake
 
         private void DrawTail() { }
 
+        private bool CheckCollision()
+        {
+            foreach (Ellipse apple in this.food.Values)
+            {
+                KeyValuePair<int, int> coordinate = (KeyValuePair<int, int>)apple.Tag;
+                if (coordinate.Key == Canvas.GetLeft(this.snake_head) && coordinate.Value == Canvas.GetTop(this.snake_head))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return false; // will never reach here.
+        }
+
         private void GenerateFood()
         {
             int x = this.rnd.Next(1, this.window_width);
@@ -143,6 +167,7 @@ namespace snake
             this.apple.Height = 10;
             this.apple.Width = 10;
             this.apple.Fill = Brushes.LimeGreen;
+            this.apple.Tag = new KeyValuePair<int, int>(x, y);
 
             this.food.Add(this.food.Count()+1, this.apple);
 
