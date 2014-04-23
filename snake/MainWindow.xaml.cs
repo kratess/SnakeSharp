@@ -23,6 +23,7 @@ namespace snake
     {
         private Ellipse snake_head { get; set; }
         private Ellipse apple { get; set; }
+        
 
         private Timer tick { get; set; }
         private Random rnd;
@@ -37,16 +38,31 @@ namespace snake
         private int window_width;
         private int window_height;
 
+        public static readonly DependencyProperty numofapplesProperty = DependencyProperty.Register("numofapples", typeof(int), typeof(MainWindow), new UIPropertyMetadata(0));
+        public int numofapples
+        {
+            get { return (int)GetValue(numofapplesProperty); }
+            set { SetValue(numofapplesProperty, value); }
+        }
+        
+        public static readonly DependencyProperty snakeLengthProperty = DependencyProperty.Register("snakeLength", typeof(int), typeof(MainWindow), new UIPropertyMetadata(0));
+        public int snakeLength
+        {
+            get { return (int)GetValue(snakeLengthProperty); }
+            set { SetValue(snakeLengthProperty, value); }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+
             this.time_multiplier = 10;
             this.rnd = new Random();
             this.food = new Dictionary<int, Ellipse>();
-            this.time_to_add_more_food = this.rnd.Next(10, 1000);
+            this.time_to_add_more_food = this.rnd.Next(10, 100);
             this.window_height = (Int32)this.Height;
             this.window_width = (Int32)this.Width;
-            this.food_label.Content = this.food.Count().ToString();
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
 
             this.snake_head = new Ellipse();
@@ -94,6 +110,7 @@ namespace snake
                         Canvas.SetTop(snake_head, top + 1 * speed_multiplier);
                         break;
                 }
+
                 this.tick_counter++;
 
                 if ((this.tick_counter == this.time_to_add_more_food && this.food.Count() < this.max_num_of_food) || this.food.Count() < 1)
@@ -101,9 +118,9 @@ namespace snake
 
                 if (this.CheckCollision())
                 {
-                    Console.WriteLine("COLISSION OCCURED");
+                    this.numofapples--;
+                    this.snakeLength++;
                 }
-
 
                 this.tick.Start();
             }));
@@ -142,14 +159,18 @@ namespace snake
 
         private bool CheckCollision()
         {
+            int i = 0;
             foreach (Ellipse apple in this.food.Values)
             {
                 if (MainWindow.CheckCollision(apple, this.snake_head))
+                {
+                    this.paintCanvas.Children.Remove(apple);
+                    this.food.Remove(i);
                     return true;
-                else
-                    return false;
+                }
+                i++;
             }
-            return false; // will never reach here.
+            return false; 
         }
 
         public static bool CheckCollision(Ellipse e1, Ellipse e2)
@@ -166,8 +187,8 @@ namespace snake
 
         private void GenerateFood()
         {
-            int x = this.rnd.Next(1, this.window_width);
-            int y = this.rnd.Next(1, this.window_height);
+            int x = this.rnd.Next(10, this.window_width-20);
+            int y = this.rnd.Next(10, this.window_height-20);
             this.apple = new Ellipse();
 
             this.apple.Height = 10;
@@ -175,13 +196,13 @@ namespace snake
             this.apple.Fill = Brushes.LimeGreen;
             this.apple.Tag = new KeyValuePair<int, int>(x, y);
 
-            this.food.Add(this.food.Count()+1, this.apple);
+            this.food.Add(this.food.Count(), this.apple);
 
             Canvas.SetTop(this.apple, y);
             Canvas.SetLeft(this.apple, x);
 
             this.paintCanvas.Children.Add(this.apple);
-            this.food_label.Content = this.food.Count().ToString();
+            this.numofapples = this.food.Count();
         }
 
         private void LevelUp() { }

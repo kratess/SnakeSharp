@@ -5,13 +5,13 @@
     <Grid Background="Gray">
         <Canvas Name="paintCanvas" Background="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Label Content="Food Available:" Canvas.Left="0" Canvas.Top="0" Height="25"/>
-            <Label x:Name="food_label" Canvas.Left="80" Canvas.Top="0" Height="25"/>
+            <Label x:Name="food_label" Content="{Binding numofapples}" Canvas.Left="80" Canvas.Top="0" Height="25"/>
 
             <Label Content="Score:" Canvas.Right="216" Canvas.Top="0" Height="25"/>
             <Label x:Name="score_label" Canvas.Right="205" Canvas.Top="0" Height="25"/>
 
             <Label Content="Length:" Canvas.Right="366" Canvas.Top="0" Height="25"/>
-            <Label x:Name="length_label" Canvas.Right="355" Canvas.Top="0" Height="25"/>
+            <Label x:Name="length_label" Content="{Binding snakeLength}" Canvas.Right="355" Canvas.Top="0" Height="25"/>
 
             <Label Content="Level:" Canvas.Right="16" Canvas.Top="0" Height="25"/>
             <Label x:Name="level_label" Canvas.Right="5" Canvas.Top="0" Height="25"/>
