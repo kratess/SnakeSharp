@@ -51,8 +51,8 @@ namespace snake
 
             this.snake_head = new Ellipse();
             this.snake_head.Fill = Brushes.Pink;
-            this.snake_head.Width = 15;
-            this.snake_head.Height = 15;
+            this.snake_head.Width = 16;
+            this.snake_head.Height = 16;
             this.snake_head.Stroke = Brushes.Red;
             this.snake_head.StrokeThickness = 1;
 
@@ -144,18 +144,24 @@ namespace snake
         {
             foreach (Ellipse apple in this.food.Values)
             {
-                KeyValuePair<int, int> coordinate = (KeyValuePair<int, int>)apple.Tag;
-                if (coordinate.Key == Canvas.GetLeft(this.snake_head) && coordinate.Value == Canvas.GetTop(this.snake_head))
-                {
+                if (MainWindow.CheckCollision(apple, this.snake_head))
                     return true;
-                }
                 else
-                {
                     return false;
-                }
             }
-
             return false; // will never reach here.
+        }
+
+        public static bool CheckCollision(Ellipse e1, Ellipse e2)
+        {
+            var r1 = e1.ActualWidth / 2;
+            var x1 = Canvas.GetLeft(e1) + r1;
+            var y1 = Canvas.GetTop(e1) + r1;
+            var r2 = e2.ActualWidth / 2;
+            var x2 = Canvas.GetLeft(e2) + r2;
+            var y2 = Canvas.GetTop(e2) + r2;
+            var d = new Vector(x2 - x1, y2 - y1);
+            return d.Length <= r1 + r2;
         }
 
         private void GenerateFood()
