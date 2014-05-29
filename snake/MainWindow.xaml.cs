@@ -60,7 +60,7 @@ namespace snake
             this.time_multiplier = 10;
             this.rnd = new Random();
             this.food = new Dictionary<int, Ellipse>();
-            this.time_to_add_more_food = this.rnd.Next(10, 100);
+            this.time_to_add_more_food = this.rnd.Next(10, 1000);
             this.window_height = (Int32)this.Height;
             this.window_width = (Int32)this.Width;
             this.KeyDown += new KeyEventHandler(OnButtonKeyDown);
@@ -117,13 +117,16 @@ namespace snake
                     this.GenerateFood();
 
                 if (this.CheckCollision())
-                {
-                    this.numofapples--;
-                    this.snakeLength++;
-                }
+                    this.AteAnApple();
+                   
 
                 this.tick.Start();
             }));
+        }
+        private void AteAnApple()
+        {
+            this.numofapples--;
+            this.snakeLength++;
         }
 
         private void OnButtonKeyDown(object sender, KeyEventArgs e)
@@ -155,7 +158,10 @@ namespace snake
 
         private void CalculateTailPosition() { }
 
-        private void DrawTail() { }
+        private void DrawTail() 
+        { 
+            
+        }
 
         private bool CheckCollision()
         {
