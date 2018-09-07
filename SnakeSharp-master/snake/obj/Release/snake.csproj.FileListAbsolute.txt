@@ -1,0 +1,13 @@
+D:\Desktop\SnakeSharp-master\snake\bin\Release\snake.exe.config
+D:\Desktop\SnakeSharp-master\snake\bin\Release\snake.exe
+D:\Desktop\SnakeSharp-master\snake\bin\Release\snake.pdb
+D:\Desktop\SnakeSharp-master\snake\obj\Release\MainWindow.baml
+D:\Desktop\SnakeSharp-master\snake\obj\Release\MainWindow.g.cs
+D:\Desktop\SnakeSharp-master\snake\obj\Release\App.g.cs
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake_MarkupCompile.cache
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.g.resources
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.Properties.Resources.resources
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.csproj.GenerateResource.cache
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.csproj.CoreCompileInputs.cache
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.exe
+D:\Desktop\SnakeSharp-master\snake\obj\Release\snake.pdb
